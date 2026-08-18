@@ -296,22 +296,14 @@ server <- function(input, output, session) {
 
   output$about <- renderUI({
     tagList(
-      h4("What the call means"),
-      tags$p(sprintf(
-        "A gene is called Expressed at a timepoint when at least %d replicates have both \u2265 %d raw reads and \u2265 %g CPM. Both halves matter: the DIV50 libraries are shallower (9.5-16 M reads) than the rest (18-39 M), so a reads-only cutoff would under-call expression at exactly the timepoint of most interest, and a CPM-only cutoff would let noise through in the deep libraries.",
-        P$MIN_REPS, P$MIN_COUNT, P$MIN_CPM)),
       h4("Normalisation"),
-      tags$p("Counts are converted to CPM using each library's total mapped reads, then log2(CPM + 1) where a log scale is shown. This is computed on the unfiltered matrix, so a gene with zero reads keeps a value of 0 and still appears. That distinction matters: a missing row reads as \"not measured\", a zero row reads as \"not expressed\"."),
-      tags$p("DESeq2 median-of-ratios size factors were checked against library-size factors on this dataset and agree to within 10% on every sample, so the simpler normalisation does not change any conclusion here."),
+      tags$p("Counts are converted to CPM using each library's total mapped reads, then log2(CPM + 1). This app use the unfiltered matrix, so a gene with zero reads keeps a value of 0 and was not removed. That distinction is shown this way: a missing row reads as \"not measured\", a zero row reads as \"not expressed\"."),
       h4("What this app cannot tell you"),
       tags$ul(
         tags$li("Whether a difference between timepoints is statistically significant. This is a detection and magnitude view, not a differential expression test."),
-        tags$li("Protein-level expression."),
-        tags$li("Which cells in the culture express the gene. Bulk RNA-seq averages over everything in the well.")),
-      h4("Duplicate identifiers"),
-      tags$p("Version suffixes were stripped from Ensembl IDs and duplicates collapsed to the ID with the most reads. Where one symbol maps to several Ensembl IDs, all remain searchable -- check the ID under the gene name if a result looks unexpected."),
-      tags$hr(),
-      tags$p(class = "note", "Data built on ", D$built_on, " from raw_counts_table.txt.")
+        tags$li("Protein-level expression."),),
+      
+      tags$p(class = "note", "App built by Sadegh on ", D$built_on, " from raw_counts_table.txt. Please refrain from sharing this with others.")
     )
   })
 
