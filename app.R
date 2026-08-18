@@ -150,7 +150,7 @@ ui <- fluidPage(
                      options = list(placeholder = "Type a symbol, e.g. TLR3",
                                     maxItems = MAX_GENES)),
       helpText(class = "note",
-               "Search by HGNC symbol or Ensembl ID. Up to", MAX_GENES, "at a time."),
+               "Search by gene symbol or Ensembl ID. Up to", MAX_GENES, "at a time."),
       checkboxInput("show_ref", "Show control genes for scale", TRUE),
       radioButtons("yaxis", "Plot y-axis",
                    c("CPM (log scale)"    = "cpm",
@@ -222,9 +222,7 @@ server <- function(input, output, session) {
     if (!length(input$genes))
       return(div(class = "empty",
                  h4("Pick a gene to start"),
-                 tags$p("Type a gene symbol in the box on the left.",
-                        "You will get a yes/no call at each timepoint, the numbers behind it,",
-                        "and a plot you can download.")))
+                 tags$p("Type a gene symbol in the box on the left.")))
     cl <- selected_calls()
     lapply(split(cl, droplevels(cl$symbol)), verdict_card)
   })
