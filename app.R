@@ -294,14 +294,14 @@ server <- function(input, output, session) {
 
   output$about <- renderUI({
     tagList(
-      h4("Normalisation"),
+      h4("Normalization"),
       tags$p("Counts are converted to CPM using each library's total mapped reads, then log2(CPM + 1). This app use the unfiltered matrix, so a gene with zero reads keeps a value of 0 and was not removed. That distinction is shown this way: a missing row reads as \"not measured\", a zero row reads as \"not expressed\"."),
       h4("What this app cannot tell you"),
       tags$ul(
         tags$li("Whether a difference between timepoints is statistically significant. This is a detection and magnitude view, not a differential expression test."),
         tags$li("Protein-level expression."),),
       
-      tags$p(class = "note", "App built by Sadegh on ", D$built_on, " from raw_counts_table.txt. Please refrain from sharing this with others.")
+      tags$p(class = "note", "App built by Sadegh on ", D$built_on, " from raw_counts_table.txt shared by Victor. Please refrain from sharing this with others.")
     )
   })
 
